@@ -1,5 +1,10 @@
 function Connect-Gh
 {
+    <#
+    .SYNOPSIS
+    Connect to GitHub API 
+    #>
+
     [CmdletBinding()]
     param (
         [Parameter(Mandatory)]
@@ -24,6 +29,9 @@ function Connect-Gh
     $result = Invoke-RestMethod @params 
     $currentUser = Invoke-RestMethod -Uri $result."current_user_url" -Headers $headers
 
+    # Script scoped variable
+    # Holds all authentication details required for connection
+    # for the remaining functions in the module
     $Script:Connection = @{
         Headers    = $headers
         ApiVersion = $ApiVersion
