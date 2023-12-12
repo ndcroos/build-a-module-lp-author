@@ -1,0 +1,38 @@
+name: CI
+on:
+  #We build on push or pull request to main branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  #This allows to run action on demand
+  workflow_dispatch:
+
+#we build on ubuntu
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      #This steps downloads repository, search for actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      #This step needs to run PowerShell and install ModuleBuilder
+      - name: Install ModuleBuilder
+        shell: pwsh
+        run: |
+          Install-Module -Name ModuleBuilder -Force
+        
+      #This step needs to run building script
+      - name: Build Module
+        shell: pwsh
+        run: |
+          . ./build.ps1
+     
+      #This steps needs to upload artifact, search for actions/upload-artifact@v3 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Rtc.GitHub
+          path: build/Rct.GitHub/
