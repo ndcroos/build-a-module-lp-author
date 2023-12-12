@@ -24,5 +24,8 @@ function Get-GhRepository
     $params = @{
         endpoint = $endpoint
     }
-    Invoke-Gh @params | ConvertFrom-Json
+
+    $isVerbose = $VerbosePreference -eq 'Continue'
+
+    Invoke-Gh @params | ConvertFrom-Json -Verbose:$isVerbose
 }

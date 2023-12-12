@@ -26,5 +26,8 @@ function Delete-GhRepository
         Method   = "Delete"
         endpoint = $endpoint
     }
-    Invoke-Gh @params
+
+    $isVerbose = $VerbosePreference -eq 'Continue'
+
+    Invoke-Gh @params -Verbose:$isVerbose
 }

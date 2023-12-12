@@ -1,4 +1,4 @@
-function Connect-Gh
+function Connect-GhRepository
 {
     <#
     .SYNOPSIS
@@ -26,6 +26,7 @@ function Connect-Gh
         Headers = $headers
         Method  = "Get"
     }
+
     $result = Invoke-RestMethod @params 
     $currentUser = Invoke-RestMethod -Uri $result."current_user_url" -Headers $headers
 
